@@ -1,5 +1,6 @@
 describe("login to onliner", () => {
   it("sign in form test", () => {
+
     const username = "ilyamakhon";
     const password = "3231295";
 
@@ -20,12 +21,14 @@ describe("login to onliner", () => {
       cy.root().submit();
     });
 
-    cy.wait(2500).get("a")
-      .should('have.class', "b-top-profile__preview js-toggle-bar")
-      .should("have.attr", "href")
-      .and("include", "https://profile.onliner.by")
-      .click()
-      .get("a")
-      .contains(username);
+    cy.get("#userbar").within(() => {
+      cy.xpath("//a[@class='b-top-profile__preview js-toggle-bar']/div")
+        .click()
+        .then(() => {
+          cy.get(".b-top-profile__part .b-top-profile__part_1").then(() => {
+            cy.get("a").should("contain", username);
+          });
+        });
+    });
   });
 });
