@@ -1,6 +1,22 @@
 export default class User {
   constructor(username, password) {
-    this.username = "ilyamakhon";
-    this.password = "3231295";
+    this._username = username;
+    this._password = password;
+  }
+
+  set username(_username) {
+    this._username = _username;
+  }
+
+  get username() {
+    return "ilyamakhon";
+  }
+
+  set password(_username) {
+    this._username = _username;
+  }
+
+  get password() {
+    return "3231295";
   }
 }
