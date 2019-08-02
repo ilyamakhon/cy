@@ -24,9 +24,21 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 Cypress.Commands.add("login", (username, password) => {
-    cy.get(".auth-container form").within(() => {
-        cy.get("input[type=text]").type(username);
-        cy.get("input[type=password]").type(password);
-        cy.root().submit();
-    });
+  cy.get(".auth-container form").within(() => {
+    cy.get("input[type=text]").type(username);
+    cy.get("input[type=password]").type(password);
+    cy.root().submit();
+  });
+});
+
+Cypress.Commands.add("logout", (username) => {
+  cy.get(".b-top-profile__list").within(() => {
+    cy.xpath("//a[@class='b-top-profile__preview js-toggle-bar']")
+      .click()
+      .get(".b-top-profile__header")
+      .within(() => {
+        cy.get("a").should("contain", username);
+        cy.contains("Выйти").click();
+      });
+  });
 });
